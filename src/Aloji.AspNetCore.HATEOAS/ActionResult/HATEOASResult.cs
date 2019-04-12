@@ -20,7 +20,7 @@ namespace Microsoft.AspNetCore.Mvc
             var resourceService = GetService<IResourceService>();
 
             var valueWithLinks = resourceService.AddLinks(value, context);
-            await this.func(this.value).ExecuteResultAsync(context);
+            await this.func(valueWithLinks).ExecuteResultAsync(context);
 
             T GetService<T>()
             {

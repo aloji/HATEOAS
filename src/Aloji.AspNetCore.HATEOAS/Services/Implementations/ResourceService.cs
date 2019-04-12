@@ -32,19 +32,19 @@ namespace Aloji.AspNetCore.HATEOAS.Services.Implementations
                     var result = new List<object>();
                     foreach (var item in (IEnumerable)value)
                     {
-                        result.Add(this.Add(item));
+                        result.Add(this.Add(item, context));
                     }
                     return result;
                 }
                 else
                 {
-                    var result = this.Add(value);
+                    var result = this.Add(value, context);
                     return result;
                 }
             }
         }
 
-        private object Add(object obj)
+        private object Add(object obj, ActionContext context)
         {
             var result = obj;
             var links = this.options.Value.GetLinks(obj.GetType());
@@ -53,7 +53,7 @@ namespace Aloji.AspNetCore.HATEOAS.Services.Implementations
                 foreach (var link in links)
                 {
                     var href = this.linkGenerator.GetUriByRouteValues(
-                            httpContext: null,
+                            httpContext: context.HttpContext,
                             routeName: link.RouteName,
                             values: link.GetValues(obj));
 
