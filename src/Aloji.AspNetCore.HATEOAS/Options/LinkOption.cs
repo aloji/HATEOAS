@@ -22,7 +22,7 @@ namespace Aloji.AspNetCore.HATEOAS.Options
 
         public object GetValues(object obj)
         {
-            if (obj == null || typeof(T) != obj.GetType())
+            if (this.valuesFunc == null || obj == null || typeof(T) != obj.GetType())
                 return null;
 
             var result = valuesFunc((T)obj);

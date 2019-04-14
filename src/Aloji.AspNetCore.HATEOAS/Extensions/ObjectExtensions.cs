@@ -30,7 +30,7 @@ namespace Aloji.AspNetCore.HATEOAS.Extensions
                 {
                     rel = rel,
                     href = href,
-                    method = method
+                    method = method.Method
                 });
 
                 return expando;
