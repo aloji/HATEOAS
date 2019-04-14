@@ -33,6 +33,20 @@ namespace AspNetCore.WebApi
                     RouteNames.Values_GetById,
                     HttpMethod.Get,
                     (x) => new { id = x.Id });
+
+                options.AddLink<ValueResponse>("all",
+                   RouteNames.Values_Get,
+                   HttpMethod.Get, null);
+
+                options.AddLink<ValueResponse>("delete",
+                    RouteNames.Values_Delete,
+                    HttpMethod.Delete,
+                    (x) => new { id = x.Id });
+
+                options.AddLink<ValueResponse>("update",
+                    RouteNames.Values_Update,
+                    HttpMethod.Put,
+                    (x) => new { id = x.Id });
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

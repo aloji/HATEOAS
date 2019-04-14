@@ -11,7 +11,7 @@ namespace AspNetCore.WebApi.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        readonly IEnumerable<ValueResponse> values;
+        readonly List<ValueResponse> values;
         public ValuesController()
         {
             this.values = new List<ValueResponse>()
@@ -41,26 +41,35 @@ namespace AspNetCore.WebApi.Controllers
 
         // POST api/values
         [HttpPost(Name = RouteNames.Values_Post)]
-        public void Post([FromBody] int value)
+        public IActionResult Post([FromBody] int value)
         {
             var valueResponse = new ValueResponse
             {
                 Id = value,
                 Value = value.ToString()
-            }
-            ;
+            };
+            this.values.Add(valueResponse);
+
+            return this.HATEOASResult(valueResponse, 
+                (v) => this.CreatedAtRoute(RouteNames.Values_GetById, new { id = value } ,v));
         }
 
         // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("{id}", Name = RouteNames.Values_Update)]
+        public IActionResult Put(int id, [FromBody] string value)
         {
+            var valueResponse = this.values.FirstOrDefault(x => x.Id == id);
+            if (valueResponse == null)
+                return this.NotFound();
+
+            return this.NoContent();
         }
 
         // DELETE api/values/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}", Name = RouteNames.Values_Delete)]
         public void Delete(int id)
         {
+            this.values.RemoveAll(x => x.Id == id);
         }
     }
 }
