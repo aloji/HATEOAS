@@ -116,22 +116,19 @@ public IActionResult Get(int id)
     if (value == null)
         return this.NotFound();
 
-    return this.HATEOASResult(value, (v) => this.Ok(v));
+    return this.Ok(value);
 }
 
-// POST api/values
-[HttpPost(Name = RouteNames.Values_Post)]
-public IActionResult Post([FromBody] int value)
-{
-    var valueResponse = new ValueResponse
-    {
-        Id = value,
-        Value = value.ToString()
-    };
-    this.values.Add(valueResponse);
 
-    return this.HATEOASResult(valueResponse, 
-        (v) => this.CreatedAtRoute(RouteNames.Values_GetById, new { id = value } ,v));
+// GET api/values/5
+[HttpGet("{id}", Name = RouteNames.Values_GetById)]
+public IActionResult Get(int id)
+{
+    var value = this.values.FirstOrDefault(x => x.Id == id);
+    if (value == null)
+        return this.NotFound();
+
+    return this.HATEOASResult(value, (v) => this.Ok(v));
 }
 
 ```
