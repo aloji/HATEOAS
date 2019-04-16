@@ -8,6 +8,39 @@
 
 Nugets: https://www.nuget.org/profiles/aloji
 
+## How to transform your API in a HATEOAS API?
+
+HATEOASResult implements IActionResult, and his constructor receives two parameters, the object to be returned with links and one func to exceute the real IActionResult. 
+
+For this reason it is very easy to transform your API in a HATEOAS API
+
+```csharp
+
+// GET api/values/5
+[HttpGet("{id}", Name = RouteNames.Values_GetById)]
+public IActionResult Get(int id)
+{
+    var value = this.values.FirstOrDefault(x => x.Id == id);
+    if (value == null)
+        return this.NotFound();
+
+    return this.Ok(value);
+}
+
+
+// GET api/values/5
+[HttpGet("{id}", Name = RouteNames.Values_GetById)]
+public IActionResult Get(int id)
+{
+    var value = this.values.FirstOrDefault(x => x.Id == id);
+    if (value == null)
+        return this.NotFound();
+
+    return this.HATEOASResult(value, (v) => this.Ok(v));
+}
+
+```
+
 ## Configuration
 
 How to setup the models links?
@@ -99,36 +132,5 @@ The response generated is
     }]
   },
 ]
-
-```
-
-HATEOASResult implements IActionResult, and his constructor receives two parameters, the object to be returned with links and one func to exceute the real IActionResult. 
-
-For this reason it is very easy to transform your API in a HATEOAS API
-
-```csharp
-
-// GET api/values/5
-[HttpGet("{id}", Name = RouteNames.Values_GetById)]
-public IActionResult Get(int id)
-{
-    var value = this.values.FirstOrDefault(x => x.Id == id);
-    if (value == null)
-        return this.NotFound();
-
-    return this.Ok(value);
-}
-
-
-// GET api/values/5
-[HttpGet("{id}", Name = RouteNames.Values_GetById)]
-public IActionResult Get(int id)
-{
-    var value = this.values.FirstOrDefault(x => x.Id == id);
-    if (value == null)
-        return this.NotFound();
-
-    return this.HATEOASResult(value, (v) => this.Ok(v));
-}
 
 ```
