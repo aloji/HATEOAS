@@ -2,6 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>HATEOAS for Asp.Net Core</Description>
+    <Authors>Aloji</Authors>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageProjectUrl>https://github.com/aloji/HATEOAS</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/aloji/HATEOAS</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
