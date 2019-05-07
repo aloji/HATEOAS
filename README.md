@@ -1,3 +1,5 @@
+[![Build Status](https://dev.azure.com/aloji/Aloji/_apis/build/status/aloji.HATEOAS?branchName=master)](https://dev.azure.com/aloji/Aloji/_build/latest?definitionId=3&branchName=master)
+
 # HATEOAS - Asp.Net Core
 
 [By spring.io](https://spring.io/understanding/HATEOAS) 
