@@ -17,8 +17,9 @@ steps:
   displayName: 'dotnet build $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
+  displayName: 'dotnet test $(buildConfiguration)'
   inputs:
     command: 'test'
-    projects: '**/test/*.csproj'
+    projects: 'test/**/*.csproj'
     feedsToUse: 'select'
     versioningScheme: 'off'
