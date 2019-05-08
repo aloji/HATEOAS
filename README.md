@@ -1,3 +1,5 @@
+[![Build Status](https://dev.azure.com/aloji/Aloji/_apis/build/status/aloji.HATEOAS?branchName=master)](https://dev.azure.com/aloji/Aloji/_build/latest?definitionId=3&branchName=master)
+
 # HATEOAS - Asp.Net Core
 
 [By spring.io](https://spring.io/understanding/HATEOAS) 
@@ -16,7 +18,9 @@ For this reason it is very easy to transform your API in a HATEOAS API
 
 ```csharp
 
-// GET api/values/5
+//
+//without links
+//
 [HttpGet("{id}", Name = RouteNames.Values_GetById)]
 public IActionResult Get(int id)
 {
@@ -28,7 +32,9 @@ public IActionResult Get(int id)
 }
 
 
-// GET api/values/5
+//
+//with links
+//
 [HttpGet("{id}", Name = RouteNames.Values_GetById)]
 public IActionResult Get(int id)
 {
@@ -118,7 +124,7 @@ The response generated is
     {
       "rel": "all",
       "href": "http://localhost:52381/api/Values",
-      "method": "DELETE"
+      "method": "GET"
     },
     {
       "rel": "delete",
